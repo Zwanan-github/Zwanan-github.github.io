@@ -27,7 +27,7 @@
 <meta property="og:description" content="动态规划学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-01T09:52:50.000Z">
-<meta property="article:modified_time" content="2023-06-02T11:18:19.073Z">
+<meta property="article:modified_time" content="2023-06-02T11:24:07.117Z">
 <meta property="article:author" content="作者：Zwanan">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-02 19:18:19" itemprop="dateModified" datetime="2023-06-02T19:18:19+08:00">2023-06-02</time>
+      <time title="修改时间：2023-06-02 19:24:07" itemprop="dateModified" datetime="2023-06-02T19:24:07+08:00">2023-06-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,25 +282,15 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1004">方
 class="math inline">\([i1, k - i1],[i2, k - i2]\)</span>
 ，需要判断是否重复的点。</p>
 <p>四个状态:{ 第一条向下， 第二条向下: {</p>
-<p>​ <span class="math inline">\(f[k - 1, i1 - 1, i2 - 1]\)</span> <span
-class="math inline">\(+\)</span> <span class="math inline">\(w[i1,
-j1]\)</span> <span class="math inline">\(+\)</span> <span
-class="math inline">\((重合 ? 0 : w[i2, j2]);\)</span></p>
+<p>​ <span class="math inline">\(f[k - 1, i1 - 1, i2 - 1] + w[i1, j1] +
+(重合 ? 0 : w[i2, j2]);\)</span></p>
 <p>​ }, ​ 第一条向下， 第二条向右: {</p>
-<p>​ <span class="math inline">\(f[k - 1, i1 - 1, i2]\)</span> <span
-class="math inline">\(+\)</span> <span class="math inline">\(w[i1,
-j1]\)</span> <span class="math inline">\(+\)</span> <span
-class="math inline">\((重合 ? 0 : w[i2, j2]);\)</span></p>
+<p>​ <span class="math inline">\(f[k - 1, i1 - 1, i2] + w[i1, j1] + (重合
+? 0 : w[i2, j2]);\)</span></p>
 <p>​ }, ​ 第一条向右， 第二条向下: {</p>
-<p>​ <span class="math inline">\(f[k - 1, i1, i2 - 1]\)</span> <span
-class="math inline">\(+\)</span> <span class="math inline">\(w[i1,
-j1]\)</span> <span class="math inline">\(+\)</span> <span
-class="math inline">\((重合 ? 0 : w[i2, j2]);\)</span></p>
+<p>​ $ f[k - 1, i1, i2 - 1] + w[i1, j1] + (重合 ? 0 : w[i2, j2]);$</p>
 <p>​ }, ​ 第一条向右， 第二条向右: {</p>
-<p>​ <span class="math inline">\(f[k - 1, i1, i2]\)</span> <span
-class="math inline">\(+\)</span> <span class="math inline">\(w[i1,
-j1]\)</span> <span class="math inline">\(+\)</span> <span
-class="math inline">\((重合 ? 0 : w[i2, j2]);\)</span></p>
+<p>​ $ f[k - 1, i1, i2] + w[i1, j1] + (重合 ? 0 : w[i2, j2]);$</p>
 <p>​ }<br />
 }</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	走一次</span></span><br><span class="line"><span class="comment">	f[i, j] = max(f[i - 1, j], f[i, j - 1]) + w[i, j];</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	走两次</span></span><br><span class="line"><span class="comment">	f[i1, j1, i2, j2] 表示从[1, 1] ,[1, 1] 走到 [i1, j1], [i2, j2]的最大值</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	处理不能重合选择：</span></span><br><span class="line"><span class="comment">	两个走到同一个点的时候，步数相等: i1 + j1 == i2 + j2</span></span><br><span class="line"><span class="comment">	不相等不可能重合，只维护重合阶段就行</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	优化状态: &#123;</span></span><br><span class="line"><span class="comment">		f[k, i1, i2] 表示从[1, 1] ,[1, 1] 走到 [i1, k - i1], [i2, k - i2]的最大值</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		k 表示当前两条线的路线的格子和（横纵坐标之和）：&#123;</span></span><br><span class="line"><span class="comment">			k == i1 + j1 == i2 + j2</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		四个状态:&#123;</span></span><br><span class="line"><span class="comment">			第一条向下， 第二条向下: &#123;</span></span><br><span class="line"><span class="comment">				f[k - 1, i1 - 1, i2 - 1] + w[i1, j1] + (重合 ? 0 : w[i2, j2]);</span></span><br><span class="line"><span class="comment">			&#125;,</span></span><br><span class="line"><span class="comment">			第一条向下，	第二条向右: &#123;</span></span><br><span class="line"><span class="comment">				f[k - 1, i1 - 1, i2] + w[i1, j1] + (重合 ? 0 : w[i2, j2]);</span></span><br><span class="line"><span class="comment">			&#125;,</span></span><br><span class="line"><span class="comment">			第一条向右， 第二条向下: &#123;</span></span><br><span class="line"><span class="comment">				f[k - 1, i1, i2 - 1] + w[i1, j1] + (重合 ? 0 : w[i2, j2]);</span></span><br><span class="line"><span class="comment">			&#125;,</span></span><br><span class="line"><span class="comment">			第一条向右， 第二条向右: &#123;</span></span><br><span class="line"><span class="comment">				f[k - 1, i1, i2] + w[i1, j1] + (重合 ? 0 : w[i2, j2]);</span></span><br><span class="line"><span class="comment">			&#125;	</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">		结论: &#123;</span></span><br><span class="line"><span class="comment">			取四个状态的Max();</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
@@ -316,13 +306,9 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/B3637">最
 <p>状态: <span class="math inline">\(f[i]\)</span> 当前点为 <span
 class="math inline">\(i\)</span> 的时候，最长的子序列长度</p>
 <p>当<span class="math inline">\(1,,,i - 1\)</span>
-中间有一个点小于当前点， 当前点 <span
-class="math inline">\(f[i]\)</span> <span
-class="math inline">\(=\)</span> <span class="math inline">\(max(f[i],
-f[j] + 1)\)</span></p>
-<p>否则 <span class="math inline">\(f[i]\)</span> <span
-class="math inline">\(=\)</span> <span
-class="math inline">\(1\)</span></p></li>
+中间有一个点小于当前点， 当前点 <span class="math inline">\(f[i] =
+max(f[i], f[j] + 1)\)</span></p>
+<p>否则 <span class="math inline">\(f[i] = 1\)</span></p></li>
 <li><p><span class="math inline">\(n*log(n)\)</span> 解法</p>
 <p>贪心 + 二分， 使用单调队列<span
 class="math inline">\(f[len]\)</span>。</p>
@@ -330,7 +316,8 @@ class="math inline">\(f[len]\)</span>。</p>
 <p>当前点大于队尾<span
 class="math inline">\(f[len]\)</span>的时候，直接加到队尾</p>
 <p>当前点小于队尾<span
-class="math inline">\(f[len]\)</span>的时候，在当前队列中找出比当前点大的最小的数替换掉(使得队列的数字越小，数字加入的期望越高)</p></li>
+class="math inline">\(f[len]\)</span>的时候，在当前队列中找出比当前点大的最小的数替换掉<span
+class="math inline">\((使得队列的数字越小，数字加入的期望越高)\)</span></p></li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">5010</span>;</span><br><span class="line"><span class="type">int</span> a[N];</span><br><span class="line"><span class="type">int</span> f[N];</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i ) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">if</span> 0 <span class="comment">// n^2</span></span></span><br><span class="line">    <span class="comment">// 以 a[i]结尾的</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        f[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// i 之前比 a[i] 小的序列</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; i; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[j] &lt; a[i]) &#123;</span><br><span class="line">                f[i] = <span class="built_in">max</span>(f[i], f[j] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res = <span class="built_in">max</span>(res, f[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, res);</span><br><span class="line">    <span class="meta">#<span class="keyword">else</span> <span class="comment">// nlogn</span></span></span><br><span class="line">    <span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">auto</span> search = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">1</span>, r = len;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (f[mid] &gt;= x) &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (f[len] &lt; a[i]) &#123;</span><br><span class="line">            f[++len] = a[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f[len] &gt; a[i]) &#123;</span><br><span class="line">            <span class="type">int</span> idx = <span class="built_in">search</span>(a[i]);</span><br><span class="line">            f[idx] = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; len;</span><br><span class="line">    <span class="meta">#<span class="keyword">endif</span> 	</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </blockquote>
@@ -400,10 +387,9 @@ class="math inline">\(a\)</span> 串遍历到 <span
 class="math inline">\(i\)</span> ，<span
 class="math inline">\(b\)</span> 串遍历到 <span
 class="math inline">\(j\)</span> 时，最长的公共序列</p>
-<p>状态:</p>
-<p><span class="math inline">\(f[i,j]= \begin{cases} max(f[i -1,j],f[i,j
-- 1]),&amp;a[i] != b[i],\\ f[i - 1, j - 1] + 1, &amp;a[i] == b[i]
-\end{cases}\)</span></p>
+<p>状态: <span class="math inline">\(f[i,j]= \begin{cases} max(f[i
+-1,j],f[i,j - 1]),&amp;a[i] != b[i],\\ f[i - 1, j - 1] + 1, &amp;a[i] ==
+b[i] \end{cases}\)</span></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="type">char</span> a[N], b[N];</span><br><span class="line"><span class="type">int</span> f[N][N];</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line"> cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"> cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) cin &gt;&gt; a[i];</span><br><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; ++ i) cin &gt;&gt; b[i]; </span><br><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">     <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; ++j) &#123;</span><br><span class="line">         <span class="keyword">if</span> (a[i] == b[j]) f[i][j] = f[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">         <span class="keyword">else</span> &#123;</span><br><span class="line">             f[i][j] = <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i][j - <span class="number">1</span>]);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> cout &lt;&lt; f[n][m];</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>困难版本<span class="math inline">\(O(nlog_2n)\)</span>，<a
 target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1439">困难版本</a></p>
@@ -426,9 +412,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U225269">0
 <p><span class="math inline">\(f[n,v]\)</span>表示，当前为第 <span
 class="math inline">\(n\)</span> 个，且背包使用的容量为 <span
 class="math inline">\(v\)</span> 的时候最大的价值</p>
-<p>状态:</p>
-<p><span class="math inline">\(f[i, j] = \begin{cases}  f[i - 1, j],
-\\  f[i - 1, j - v[i]] + w[i], &amp; j &gt;= v[i],
+<p>状态: <span class="math inline">\(f[i, j] = \begin{cases}  f[i - 1,
+j], \\  f[i - 1, j - v[i]] + w[i], &amp; j &gt;= v[i],
 \end{cases}\)</span></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= v; ++ j) &#123;</span><br><span class="line">        f[i][j] = f[i - <span class="number">1</span>][j];</span><br><span class="line">        <span class="keyword">if</span> (j &gt;= v[i]) f[i][j] = <span class="built_in">max</span>(f[i][j], f[i - <span class="number">1</span>][j - v[i]] + w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; f[n][v];</span><br></pre></td></tr></table></figure>
 <ul>
@@ -443,10 +428,9 @@ w[i])\)</span></p>
 <h4 id="完全背包"><a
 target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/3/">完全背包</a></h4>
 <blockquote>
-<p>优化过程:</p>
-<p><span class="math inline">\(O(nmk) &gt;&gt;&gt; O(nm)\)</span>
-&amp;&amp; <span class="math inline">\(f[N][M] &gt;&gt;&gt;
-f[M]\)</span></p>
+<p>优化过程: <span class="math inline">\(O(nmk) &gt;&gt;&gt;
+O(nm)\)</span> &amp;&amp; <span class="math inline">\(f[N][M]
+&gt;&gt;&gt; f[M]\)</span></p>
 <ul>
 <li>最朴素</li>
 </ul>
@@ -462,8 +446,7 @@ f[M]\)</span></p>
 </blockquote>
 <h4 id="多重背包"><a href="">多重背包</a></h4>
 <blockquote>
-<p>优化过程:</p>
-<p><span class="math inline">\(O(nms)&gt;&gt;&gt; O(nmlog_2s)
+<p>优化过程: <span class="math inline">\(O(nms)&gt;&gt;&gt; O(nmlog_2s)
 &gt;&gt;&gt; O(nm)\)</span></p>
 <ul>
 <li>朴素,<a
@@ -494,10 +477,7 @@ target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/8/">
 <p><span class="math inline">\(f[j, k]\)</span> 表示当使用了 <span
 class="math inline">\(j\)</span> 容量且当前重量为 <span
 class="math inline">\(k\)</span> 的最大价值</p>
-<p>状态:</p>
-<p><span class="math inline">\(f[j, k]\)</span> <span
-class="math inline">\(=\)</span> <span class="math inline">\(max(f[j,
-k], f[j - v[i],k - we[i]] + w[i]);\)</span></p>
+<p>状态: $ f[j, k] = max(f[j, k], f[j - v[i],k - we[i]] + w[i]); $</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 体积v[i]、重量we[i]、价值w[i]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = m; j &gt;= v[i]; -- j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = weight; k &gt;= we[i]; -- k) &#123;</span><br><span class="line">            f[j][k] = <span class="built_in">max</span>(f[j][k], f[j - v[i]][k - we[i]] + w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; f[m][weight];</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h4 id="分组背包"><a
@@ -511,20 +491,14 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1757">分
 <p><span class="math inline">\(f[i][j]\)</span> 表示 当前在第 <span
 class="math inline">\(i\)</span> 组挑选，并且使用了 <span
 class="math inline">\(j\)</span> 的容量的最大价值</p>
-<p>状态:</p>
-<p><span class="math inline">\(f[i, j]\)</span> <span
-class="math inline">\(=\)</span> $max(f[i, j], f[i - 1, j - v[i][k]] +
-w[i][k]) $</p>
+<p>状态: $ f[i, j] = max(f[i, j], f[i - 1, j - v[i][k]] + w[i][k]) $</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cnt 为 组的数量，m 为 总体积，group 为 pair&lt;int,int&gt;对象的数组，主要存储体积和价值</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++ i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= m; ++ j) &#123;</span><br><span class="line">        f[i][j] = f[i - <span class="number">1</span>][j];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> v : group[i]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j &gt;= v.first) f[i][j] = <span class="built_in">max</span>(f[i][j], f[i - <span class="number">1</span>][j - v.first] + v.second);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>状态压缩</li>
 </ul>
 <p><span class="math inline">\(f[j]\)</span> 表示 当前使用了$ j $
 容量时的最大价值</p>
-<p>状态:</p>
-<p><span class="math inline">\(f[j]\)</span> <span
-class="math inline">\(=\)</span> <span class="math inline">\(max(f[j],
-f[j - a[i][k]] + w[i][k])\)</span></p>
+<p>状态: $ f[j] = max(f[j], f[j - a[i][k]] + w[i][k])$</p>
 <p>由朴素算法得到，每层的状态都会从本层和上一层得到，所以直接压缩掉一维状态</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= cnt; ++ i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = m; j &gt;= <span class="number">0</span>; -- j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> v : group[i]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j &gt;= v.first) f[j] = <span class="built_in">max</span>(f[j], f[j - v.first] + v.second);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </blockquote>
@@ -535,11 +509,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U270296">�
 <p><span class="math inline">\(f[j, k]\)</span> 表示当使用不少于 <span
 class="math inline">\(f\)</span> 容量的氧气和不少于 <span
 class="math inline">\(k\)</span> 容量的氮气的时候的最小花费</p>
-<p>状态:</p>
-<p><span class="math inline">\(f[j, k]\)</span> <span
-class="math inline">\(=\)</span> <span
-class="math inline">\(min(f[j,k],\)</span> $f[max(0, j - o[i]), $<span
-class="math inline">\(max(0, k - n[i])] + w[i])\)</span></p>
+<p>状态: <span class="math inline">\(f[j, k] = min(f[j,k], f[max(0, j -
+o[i]), max(0, k - n[i])] + w[i])\)</span></p>
 <p><span class="math inline">\(f[max(0, j - o[i]), max(0, k -
 n[i])]\)</span> 中向上取整是因为可能有浪费的，不一定刚刚好用完</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(f, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> f);</span><br><span class="line">f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; ++ i) &#123;</span><br><span class="line">    cin &gt;&gt; oo &gt;&gt; nn &gt;&gt; w;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = o2; j &gt;= <span class="number">0</span>; -- j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = n2; k &gt;= <span class="number">0</span>; -- k) &#123;</span><br><span class="line">            f[j][k] = <span class="built_in">min</span>(f[j][k], f[<span class="built_in">max</span>(<span class="number">0</span>, j - oo)][<span class="built_in">max</span>(<span class="number">0</span>, k - nn)] + w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; f[o2][n2];</span><br></pre></td></tr></table></figure>
@@ -558,15 +529,16 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1060">开
 </blockquote>
 <h4 id="背包问题求具体方案"><a
 target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U224072">背包问题求具体方案</a></h4>
+<p>​ 对01背包的过程进行分析路径</p>
+<p>​ 先01背包求最优解，再通过判断每个点的值判断选的点</p>
+<p>​ 状态: <span class="math inline">\(f[i, j] = \begin{cases} f[i - 1,
+j], \\ f[i - 1, j - v[i]] + w[i], &amp; j &gt;= v[i],
+\end{cases}\)</span></p>
+<p>​ 如果 <span class="math inline">\(f[i,j] == f[i + 1,j - v[i]] +
+w[i]\)</span> 说明 <span class="math inline">\([i, j]\)</span> 是从
+<span class="math inline">\([i + 1, j - v[i]]\)</span> 选择了 <span
+class="math inline">\(i\)</span></p>
 <blockquote>
-<p>对01背包的过程进行分析路径</p>
-<p>先01背包求最优解，再通过判断每个点的值判断选的点</p>
-<p>如果 <span class="math inline">\(f[i,j]\)</span> <span
-class="math inline">\(==\)</span> <span class="math inline">\(f[i + 1,j
-- v[i]]\)</span> <span class="math inline">\(+\)</span> <span
-class="math inline">\(w[i]\)</span> 说明 <span class="math inline">\([i,
-j]\)</span> 是从 <span class="math inline">\([i + 1, j - v[i]]\)</span>
-选择了 <span class="math inline">\(i\)</span> 走过来的</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = n; i &gt;= <span class="number">1</span>; --i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= m; ++ j) &#123;</span><br><span class="line">        f[i][j] = f[i + <span class="number">1</span>][j];</span><br><span class="line">        <span class="keyword">if</span> (j &gt;= v[i]) &#123;</span><br><span class="line">            f[i][j] = <span class="built_in">max</span>(f[i][j], f[i + <span class="number">1</span>][j - v[i]] + w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;	</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, j = m; i &lt;= n &amp;&amp; j &gt;= <span class="number">0</span>; ++ i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j &gt;= v[i] &amp;&amp; (f[i][j] == f[i + <span class="number">1</span>][j - v[i]] + w[i])) &#123;</span><br><span class="line">        cout &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        j -= v[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </blockquote>
 
