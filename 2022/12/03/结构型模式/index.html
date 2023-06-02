@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="设计模式---结构型模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结构型模式">
+<meta property="og:url" content="http://example.com/2022/12/03/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Zwanan的博客">
+<meta property="og:description" content="设计模式---结构型模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221130214646.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221201173338.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221201225104.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221202215947.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203142349.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203150143.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203155657.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203160522.png">
+<meta property="article:published_time" content="2022-12-03T08:08:02.000Z">
+<meta property="article:modified_time" content="2023-03-01T09:26:10.052Z">
+<meta property="article:author" content="作者：Zwanan">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221130214646.png">
+
+
+<link rel="canonical" href="http://example.com/2022/12/03/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/12/03/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/","path":"2022/12/03/结构型模式/","title":"结构型模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>结构型模式 | Zwanan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zwanan的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">平平淡淡，常乐长乐</p>
+      <img class="custom-logo-image" src="/uploads/custom-logo.png" alt="Zwanan的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">8</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F-%E5%8C%85%E8%A3%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">1.装饰者模式(包装模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.0.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE"><span class="nav-number">1.0.4.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.0.5.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">2.代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE-1"><span class="nav-number">2.0.4.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.0.5.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">3.适配器模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="nav-number">3.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-number">3.0.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE-2"><span class="nav-number">3.0.4.</span> <span class="nav-text">类图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">4.外观模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-3"><span class="nav-number">4.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-3"><span class="nav-number">4.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="nav-number">4.0.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE-3"><span class="nav-number">4.0.4.</span> <span class="nav-text">类图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-%E5%90%88%E6%88%90%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">5.组合模式(合成模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-4"><span class="nav-number">5.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-4"><span class="nav-number">5.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE-4"><span class="nav-number">5.0.3.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">5.0.4.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">6.桥接模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-5"><span class="nav-number">6.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-5"><span class="nav-number">6.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="nav-number">6.0.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE-5"><span class="nav-number">6.0.4.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="nav-number">6.0.5.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">7.享元模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-6"><span class="nav-number">7.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-6"><span class="nav-number">7.0.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="nav-number">7.0.3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%B1%BB%E5%9B%BE-6"><span class="nav-number">7.0.4.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-3"><span class="nav-number">7.0.5.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">7.0.6.</span> <span class="nav-text">运行结果</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="作者：Zwanan"
+      src="/uploads/custom-logo.png">
+  <p class="site-author-name" itemprop="name">作者：Zwanan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Zwanan-github" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zwanan-github" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:270603801@gmail.com" title="E-Mail → mailto:270603801@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://user.qzone.qq.com/270603801" title="qq空间 → https:&#x2F;&#x2F;user.qzone.qq.com&#x2F;270603801" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>qq空间</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/weixin_64335340" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_64335340" rel="noopener" target="_blank"><i class="fab fa-csdn fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/03/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/custom-logo.png">
+      <meta itemprop="name" content="作者：Zwanan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zwanan的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="结构型模式 | Zwanan的博客">
+      <meta itemprop="description" content="设计模式---结构型模式">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          结构型模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-03 16:08:02" itemprop="dateCreated datePublished" datetime="2022-12-03T16:08:02+08:00">2022-12-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-01 17:26:10" itemprop="dateModified" datetime="2023-03-01T17:26:10+08:00">2023-03-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">设计模式---结构型模式</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="1-装饰者模式-包装模式"><a href="#1-装饰者模式-包装模式" class="headerlink" title="1.装饰者模式(包装模式)"></a>1.装饰者模式(包装模式)</h4><blockquote>
+<p>装饰者模式(Decorator Pattern)：动态地给一个对象添加一些额外的职责。就增加功能来说，装饰者模式相比生成子类更为灵活。</p>
+<p>装饰者模式是一种对象结构型模式。<br>装饰者模式包含如下角色：</p>
+<ol>
+<li>抽象构件(Component)角色：给出一个抽象接口，以规范准备接收附加责任的对象。</li>
+<li>具体构件(ConcreteComponent)角色：定义一个将要接收附加责任的类。</li>
+<li>装饰(Decorator)角色：持有一个构件(Component)对象的实例，并定义一个与抽象构件接口一致的接口。</li>
+<li>具体装饰(ConcreteDecorator)角色：负责给构件对象“贴上”附加的责任。</li>
+<li>客户端(Client)角色：装饰模式的客户端充当了使用一个具体构件对象和装饰对象之间的粘合剂的角色，客户端并不知道具体构件对象所具有的功能，只有在运行时才能够确定具体构件对象的具体功能。</li>
+</ol>
+</blockquote>
+<h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>装饰者模式与继承关系的目的都是要扩展对象的功能，但是装饰者模式可以提供比继承更多的灵活性。</li>
+<li>可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的装饰器，从而实现不同的行为。</li>
+<li>可以对一个对象进行多次装饰，创造出不同行为的组合，得到功能更为强大的对象。</li>
+</ul>
+<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>使用装饰者模式进行系统设计时将产生很多小对象，如果过度使用会使系统变得很复杂。</li>
+</ul>
+<h6 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h6><ul>
+<li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li>
+<li>处理那些可以撤消的职责。</li>
+<li>当不能采用继承的方法进行扩充时。需要增加太多基本功能的排列组合时，采用继承关系很难实现，而采用装饰者模式却很好实现。</li>
+</ul>
+<h6 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>打印账单的例子，打印账单的时候，可能需要打印账单的头部，也可能需要打印账单的尾部，也可能需要打印账单的中间部分，这些都是可选的，所以我们可以使用装饰者模式来实现。</p>
+<p>Bill为抽象构件，Concrete为具体构件，BillDecorator为抽象装饰者，HeaderBill、FootBill为具体装饰者。<br><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221130214646.png" alt="image-20221130214639542"></p>
+</blockquote>
+<h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 抽象组件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Bill</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">printBill</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体组件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConCreteBill</span> <span class="keyword">extends</span> <span class="title class_">Bill</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printBill</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;打印账单&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 抽象装饰者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BillDecorator</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Bill bill;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BillDecorator</span><span class="params">(Bill bill)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.bill = bill;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printBill</span><span class="params">()</span>&#123;</span><br><span class="line">        bill.printBill();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体装饰类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HeaderBill</span> <span class="keyword">extends</span> <span class="title class_">BillDecorator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HeaderBill</span><span class="params">(Bill bill)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(bill);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printBill</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;打印账单头部&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.printBill();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体装饰类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FootBill</span> <span class="keyword">extends</span> <span class="title class_">BillDecorator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FootBill</span><span class="params">(Bill bill)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(bill);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printBill</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.printBill();</span><br><span class="line">        System.out.println(<span class="string">&quot;打印账单尾部&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-代理模式"><a href="#2-代理模式" class="headerlink" title="2.代理模式"></a>2.代理模式</h4><blockquote>
+<p>代理模式是一种对象结构型模式。<br>意图：为其他对象提供一种代理以控制对这个对象的访问。<br>代理模式包含以下主要角色。</p>
+<ol>
+<li>抽象主题(Subject)角色：声明真实主题和代理主题的共同接口，这样一来在任何可以使用真实主题的地方都可以使用代理主题，客户端通常需要针对抽象主题角色进行编程。</li>
+<li>真实主题(RealSubject)角色：定义代理角色所代表的真实对象，是我们最终要引用的对象。</li>
+<li>代理(Proxy)角色：保存一个引用使得代理可以访问实体，并提供一个与Subject的接口相同的接口，这样代理就可以用来代替实体。</li>
+<li>客户(Client)角色：通过一个代理访问一个实体，因此要使用代理的功能。</li>
+</ol>
+</blockquote>
+<h6 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>代理模式能够协调调用者和被调用者，在一定程度上降低了系统的耦合度。</li>
+</ul>
+<h6 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>代理模式会造成系统设计中类的数目增加。</li>
+<li>在客户端和目标对象之间增加一个代理对象，会造成请求处理速度变慢。</li>
+<li>需要事先确定代理类的性质</li>
+</ul>
+<h6 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a>适用场景</h6><ul>
+<li>远程代理：为一个对象在不同的地址空间提供局部代表。这样可以隐藏一个对象存在于不同地址空间的事实。</li>
+<li>虚拟代理：根据需要创建开销很大的对象。通过它来存放实例化需要很长时间的真实对象。</li>
+<li>安全代理：用来控制真实对象访问时的权限。例如，网上商城中对不同的用户提供不同的访问权限。</li>
+<li>智能指引：当调用真实的对象时，代理处理另外一些事。</li>
+</ul>
+<h6 id="类图-1"><a href="#类图-1" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>使用拨电话和接电话的例子来说明代理模式的结构和特点。<br>Listener就是抽象类，ProxyListener就是代理类，RealListener就是真实类。</p>
+<p>代理类和真实类都实现了抽象类的接口，代理类中持有真实类的引用，代理类中的方法调用真实类的方法，代理类中可以增加一些额外的操作，比如打印日志等。</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221201173338.png" alt="image-20221201173331558"></p>
+<h6 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 拨号者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dialer</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Listener listener;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Dialer</span><span class="params">(String name, Listener listener)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.listener = listener;</span><br><span class="line">        listener.setFrom(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">call</span><span class="params">()</span> &#123;</span><br><span class="line">        listener.listen();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 抽象接听者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String from;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">reject</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getFrom</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> from;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setFrom</span><span class="params">(String from)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.from = from;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体接听者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RealListener</span> <span class="keyword">extends</span> <span class="title class_">Listener</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;接听来自&quot;</span> + getFrom() + <span class="string">&quot;的电话&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reject</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;拒绝来自&quot;</span> + getFrom() + <span class="string">&quot;的电话&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 代理接听者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProxyListener</span> <span class="keyword">extends</span> <span class="title class_">Listener</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RealListener realListener;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ProxyListener</span><span class="params">(String from, RealListener listener)</span> &#123;</span><br><span class="line">        setFrom(from);</span><br><span class="line">        <span class="built_in">this</span>.realListener = listener;</span><br><span class="line">        listener.setFrom(from);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;Zwanan&quot;</span>.equals(getFrom()))&#123;</span><br><span class="line">            realListener.listen();</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            realListener.reject();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reject</span><span class="params">()</span> &#123;</span><br><span class="line">        realListener.reject();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-适配器模式"><a href="#3-适配器模式" class="headerlink" title="3.适配器模式"></a>3.适配器模式</h4><blockquote>
+<p>适配器模式(Adapter Pattern)：将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<p>适配器模式分为类适配器模式和对象适配器模式，类适配器模式使用多重继承，对象适配器模式使用组合。</p>
+<p>专门用在两个接口不兼容的情况下，比如两个接口的方法名不一样，或者两个接口的参数不一样，或者两个接口的返回值不一样，这时候就需要适配器模式来适配两个接口。<br>还有系统后期扩展，需要使用新的接口，但是又不想改变原来的代码，这时候就可以使用适配器模式来适配新的接口。</p>
+<p>主要包含的角色：<br>1.目标接口：客户所期待的接口，目标可以是具体的或抽象的类，也可以是接口。<br>2.源角色：需要适配的类或适配者类。<br>3.适配器：通过包装一个源对象，把源对象的接口转换成目标接口。</p>
+</blockquote>
+<h6 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>可以让任何两个没有关联的类一起运行。</li>
+<li>提高了类的复用。</li>
+<li>增加了类的透明度。</li>
+<li>灵活性好。</li>
+</ul>
+<h6 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>过多的使用适配器，会让系统非常凌乱，不易整体进行把握。</li>
+<li>类适配器不能适配一个类和它的子类。</li>
+</ul>
+<h6 id="适用场景-2"><a href="#适用场景-2" class="headerlink" title="适用场景"></a>适用场景</h6><ul>
+<li>系统需要使用现有的类，而此类的接口不符合系统的需要。</li>
+<li>当创建一个可以复用的类，用于与其他不相关的类或不可预见的类协同工作时。</li>
+<li>在对象适配器中要匹配多个子类的情况，可以使用类适配器，为对象适配器可以适配他们父类的接口。</li>
+</ul>
+<h6 id="类图-2"><a href="#类图-2" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>使用一个适配原来保存日志的接口，但是现在需要保存到数据库中，这时候就需要适配器模式来适配新的接口。来适配新的操作<br>LogFileOperator是被适配的接口，LogDBOperator是适配后的新接口，Adapter是适配器，LogModel是日志信息的实体类</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221201225104.png" alt="image-20221201225017805"></p>
+<h4 id="4-外观模式"><a href="#4-外观模式" class="headerlink" title="4.外观模式"></a>4.外观模式</h4><blockquote>
+<p>外观模式(Facade Pattern)：为子系统中的一组接口提供一个一致的界面，此模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
+<p>外观模式的主要角色如下：</p>
+<p>1.外观(Facade)角色：为多个子系统对外提供一个共同的接口。</p>
+<p>2.子系统(Sub System)角色：实现系统的部分功能，客户可以通过外观角色访问它。</p>
+</blockquote>
+<h6 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>减少系统相互依赖。</li>
+<li>提高灵活性。</li>
+<li>提高了安全性。</li>
+</ul>
+<h6 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>如果设计不当，增加新的子系统可能需要修改外观类或客户端的源代码，违背了“开闭原则”。</li>
+<li>不能很好地限制客户使用子系统类，如果对客户访问子系统类做太多的限制则减少了可变性和灵活性。</li>
+</ul>
+<h6 id="适用场景-3"><a href="#适用场景-3" class="headerlink" title="适用场景"></a>适用场景</h6><ul>
+<li>对于一个复杂的子系统，需要为用户提供一个简单的交互操作。</li>
+<li>客户端与多个子系统之间存在很大的依赖性。引入外观类将子系统与客户端解耦，可以提高子系统的独立性和可移植性。</li>
+<li>当整个系统需要构建一个层次结构的子系统，不希望子系统直接的交互。</li>
+</ul>
+<h6 id="类图-3"><a href="#类图-3" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>其中SubSystem类都是子系统，ReadAndWriteFacade类是客户端，它需要调用子系统的方法，但是不需要知道子系统的具体实现，只需要知道子系统的接口就可以了，这样就实现了客户端和子系统的解耦。</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221202215947.png" alt="image-20221202215940358"></p>
+<h4 id="5-组合模式-合成模式"><a href="#5-组合模式-合成模式" class="headerlink" title="5.组合模式(合成模式)"></a>5.组合模式(合成模式)</h4><blockquote>
+<p>组合模式(合成模式), 也称为部分-整体模式，主要是用来描述部分与整体的关系。使得用户对单个对象和组合对象的使用具有一致性。</p>
+<p>组合模式的主要角色如下：</p>
+<p>1.抽象构件(Component)角色：它是组合中对象声明接口，在适当的情况下，实现所有类共有接口的缺省行为。声明一个接口用于访问和管理Component的子部件。</p>
+<p>2.叶子构件(Leaf)角色：在组合中表示叶子节点对象，叶子节点没有子节点。</p>
+<p>3.树枝构件(Composite)角色：它的作用是存储子部件，在Component接口中实现与子部件有关的操作，如增加(add)和删除(remove)等。</p>
+</blockquote>
+<h6 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>定义了包含对象和组合对象的类层次结构，使得客户端可以一致地使用组合结构和单个对象，高层模块调用的更加简单。</li>
+<li>客户端不必关心处理的是单个对象还是组合对象，简化了客户端代码。</li>
+<li>更容易在组合体内加入对象构件，客户端不必因为加入了新的对象构件而更改源代码，符合“开闭原则”。</li>
+</ul>
+<h6 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>使设计变得更加抽象，对象的业务规则如果很复杂，则实现组合模式具有很大挑战性，而且不是所有的方法都与叶子对象子类都有关联。</li>
+<li>限制了接口的影响范围，使得设计更加有限制性，违背了依赖倒置原则（<strong>通过抽象（接口、抽象类）使各个类或模块的实现彼此独立，不互相影响，实现模块间的松耦合</strong>）。</li>
+</ul>
+<h6 id="类图-4"><a href="#类图-4" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>其中Component是抽象构件，Leaf是叶子构件，Composite是树枝构件，Client是客户端，它需要调用Component的方法，但是不需要知道Component的具体实现，只需要知道Component的接口就可以了，这样就实现了客户端和Component的解耦。</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203142349.png" alt="image-20221203142342809"></p>
+<h6 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 公司员工类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Corp</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">position</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> <span class="variable">salary</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Corp</span><span class="params">(String name, String position, <span class="type">double</span> salary)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.position = position;</span><br><span class="line">        <span class="built_in">this</span>.salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">info</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        info = <span class="string">&quot;姓名：&quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">        info = info + <span class="string">&quot;\t职位：&quot;</span> + <span class="built_in">this</span>.position;</span><br><span class="line">        info = info + <span class="string">&quot;\t薪水：&quot;</span> + <span class="built_in">this</span>.salary;</span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 领导类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dep</span> <span class="keyword">extends</span> <span class="title class_">Corp</span>&#123;</span><br><span class="line"></span><br><span class="line">    ArrayList&lt;Corp&gt; subordinateList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Corp&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Dep</span><span class="params">(String name, String position, <span class="type">double</span> salary)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(name, position, salary);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addSubordinate</span><span class="params">(Corp corp)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.subordinateList.add(corp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;Corp&gt; <span class="title function_">getSubordinate</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.subordinateList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 公司员工类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Emp</span> <span class="keyword">extends</span> <span class="title class_">Corp</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Emp</span><span class="params">(String name, String position, <span class="type">double</span> salary)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(name, position, salary);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-桥接模式"><a href="#6-桥接模式" class="headerlink" title="6.桥接模式"></a>6.桥接模式</h4><blockquote>
+<p>桥接模式(Bridge)是一种结构型设计模式，它将抽象部分与它的实现部分分离，使它们都可以独立地变化。桥接模式是一种对象结构型模式，又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
+<p>桥接模式的主要角色如下。</p>
+<p>1.Abstraction（抽象类）：定义抽象类的接口，它一般是抽象类而不是接口，其中定义了一个Implementor（实现类接口）类型的对象并可以维护该对象，它与Implementor之间具有关联关系，它既可以包含抽象业务方法，也可以包含具体业务方法。</p>
+<p>2.RefinedAbstraction（扩充抽象类）：扩充由Abstraction定义的接口，通常情况下它不再是抽象类而是具体类，它实现了在Abstraction中声明的抽象业务方法，在RefinedAbstraction中可以调用在Implementor中定义的业务方法。</p>
+<p>3.Implementor（实现类接口）：定义实现类的接口，这个接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同，一般而言，Implementor接口仅提供基本操作，而Abstraction定义的接口可能会做更多更复杂的操作。Implementor接口对这些基本操作进行了声明，而具体实现交给其子类。通过关联关系，在Abstraction中不仅拥有自己的方法，还可以调用到Implementor中定义的方法，使用关联关系来替代继承关系。</p>
+<p>4.ConcreteImplementor（具体实现类）：给出Implementor接口的具体实现，而在不同的ConcreteImplementor中提供基本操作的不同实现，在程序运行时，ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的业务操作方法。</p>
+</blockquote>
+<h6 id="优点-5"><a href="#优点-5" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>分离抽象接口及其实现部分，取代多层继承方案，降低了系统的复杂性，是解决多维度变化问题的有效方案。</li>
+<li>实现细节对客户透明，可以对用户隐藏实现细节。</li>
+<li>桥接模式有良好的扩展性，由于抽象与实现分离，因此扩展能力强，可以独立扩展抽象部分和实现部分，在一定程度上解耦了抽象部分和实现部分。</li>
+</ul>
+<h6 id="缺点-5"><a href="#缺点-5" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>桥接模式的引入会增加系统的理解与设计难度，由于聚合关系建立在抽象层，要求开发者针对抽象进行设计与编程。</li>
+<li>桥接模式要求正确识别出系统中两个独立变化的维度，因此其使用范围有一定的局限性，如，一个类存在两个独立变化的维度，使用桥接模式进行重构。</li>
+</ul>
+<h6 id="适用场景-4"><a href="#适用场景-4" class="headerlink" title="适用场景"></a>适用场景</h6><ul>
+<li>如果一个系统需要在构件的抽象化角色和具体化角色之间增加更多的灵活性，避免在两个层次之间建立静态的继承关系，通过桥接模式可以使它们在抽象层建立一个关联关系。</li>
+<li>一个类存在两个独立变化的维度，且这两个维度都需要进行扩展。</li>
+<li>不希望使用继承的场景。</li>
+<li>重用性要求较高的场景。</li>
+</ul>
+<h6 id="类图-5"><a href="#类图-5" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>以买咖啡为例子，咖啡有不同的口味，有不同的杯型，咖啡的口味和杯型是可以独立变化的，所以可以使用桥接模式来实现。</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203150143.png" alt="image-20221203150143331"></p>
+<h6 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 咖啡大小的抽象类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">CoffeeSize</span> &#123;</span><br><span class="line">    CoffeeKind coffeeKind;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 咖啡大小</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SuperCup</span> <span class="keyword">extends</span> <span class="title class_">CoffeeSize</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">20</span> + coffeeKind.getPrice();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 咖啡大小</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MediumCup</span> <span class="keyword">extends</span> <span class="title class_">CoffeeSize</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">10</span> + coffeeKind.getPrice();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 咖啡口味抽象类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">CoffeeKind</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 拿铁咖啡</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CafeLatte</span> <span class="keyword">extends</span> <span class="title class_">CoffeeKind</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 摩卡咖啡</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CafeMocha</span> <span class="keyword">extends</span> <span class="title class_">CoffeeKind</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getPrice</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">25</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-享元模式"><a href="#7-享元模式" class="headerlink" title="7.享元模式"></a>7.享元模式</h4><blockquote>
+<p>享元模式（Flyweight Pattern）是运用共享技术有效地支持大量细粒度的对象。它通过共享已经存在的对象来大幅度减少需要创建的对象数量，从而降低系统的内存、CPU使用率。享元模式以共享的方式高效地支持大量细粒度的对象。</p>
+<p>大粒度对象：指的是占用内存空间大的对象，如：图片、视频等。</p>
+<p>享元模式的主要角色如下。</p>
+<p>1.抽象享元角色（Flyweight）：给出一个抽象接口，以规定出所有具体享元角色需要实现的方法。</p>
+<p>2.具体享元角色（Concrete Flyweight）：实现抽象享元角色所规定的接口。</p>
+<p>3.非共享具体享元角色（Unshared Concrete Flyweight）：并不是所有的抽象享元角色都需要被共享。Flyweight接口使共享成为可能，但它并不强制共享。在Flyweight对象结构的某些层次，UnsharedConcreteFlyweight对象通常将ConcreteFlyweight对象作为子节点。</p>
+<p>4.享元工厂角色（Flyweight Factory）：本角色负责创建和管理享元角色。本角色必须保证享元对象可以被系统适当地共享。当一个客户端对象调用一个享元对象的时候，享元工厂角色会检查系统中是否已经有一个符合要求的享元对象。如果已经有了，享元工厂角色就应当提供这个已有的享元对象；如果系统中没有一个适当的享元对象的话，享元工厂角色就应当创建一个合适的享元对象。</p>
+</blockquote>
+<h6 id="优点-6"><a href="#优点-6" class="headerlink" title="优点"></a>优点</h6><ul>
+<li>减少对象的创建，降低内存中对象的数量，降低系统的内存，提高效率。</li>
+<li>外部状态相对独立，不影响内部状态，从而使得享元对象能够在不同的环境被共享。</li>
+</ul>
+<h6 id="缺点-6"><a href="#缺点-6" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>享元模式使得系统更加复杂，需要分离出内部状态和外部状态，这使得程序的逻辑复杂化。</li>
+<li>为了使对象可以共享，享元模式需要将享元对象的状态外部化，而读取外部状态使得运行时间变长。</li>
+<li>维护共享对象，需要额外的开销。</li>
+</ul>
+<h6 id="适用场景-5"><a href="#适用场景-5" class="headerlink" title="适用场景"></a>适用场景</h6><ul>
+<li>系统中存在大量的相似的大粒度对象。</li>
+<li>细粒度对象的创建和销毁造成了很大的开销。</li>
+<li>细粒度对象的大部分状态都可以外部化，可以将这些外部状态传入对象中，就使用享元模式来实现内外部状态的分离。</li>
+<li>需要缓冲池的场景。</li>
+</ul>
+<h6 id="类图-6"><a href="#类图-6" class="headerlink" title="类图"></a>类图</h6><blockquote>
+<p>使用网站产品定制例子，来说明享元模式的结构和实现方法。<br>其中，分类是内部状态，产品是外部状态。网站分类是共享的，产品是不共享的。网站分类是网站的属性，产品是网站的内容。网站分类是网站的固有属性，产品是网站的可变属性。网站分类是网站的不可变属性，产品是网站的可变属性。</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203155657.png" alt="image-20221203155657555"></p>
+<h6 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">User</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 抽象享元类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">WebSite</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">(User user)</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体享元类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConcreteWebSite</span> <span class="keyword">extends</span> <span class="title class_">WebSite</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;<span class="comment">//网站发布的形式(类型)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ConcreteWebSite</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">use</span><span class="params">(User user)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;网站分类：&quot;</span> + name + <span class="string">&quot; 用户：&quot;</span> + user.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 享元工厂类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSiteFactory</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;String, WebSite&gt; pool = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, WebSite&gt;();</span><br><span class="line">    <span class="comment">//获得网站分类</span></span><br><span class="line">    <span class="keyword">public</span> WebSite <span class="title function_">getWebSiteCategory</span><span class="params">(String type)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!pool.containsKey(type)) &#123;</span><br><span class="line">            pool.put(type, <span class="keyword">new</span> <span class="title class_">ConcreteWebSite</span>(type));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (WebSite) pool.get(type);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得网站分类总数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getWebSiteCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> pool.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">WebSiteFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">WebSiteFactory</span>();</span><br><span class="line">        <span class="type">WebSite</span> <span class="variable">fx</span> <span class="operator">=</span> factory.getWebSiteCategory(<span class="string">&quot;产品展示&quot;</span>);</span><br><span class="line">        fx.use(<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;小菜&quot;</span>));</span><br><span class="line">        <span class="type">WebSite</span> <span class="variable">fy</span> <span class="operator">=</span> factory.getWebSiteCategory(<span class="string">&quot;产品展示&quot;</span>);</span><br><span class="line">        fy.use(<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;大鸟&quot;</span>));</span><br><span class="line">        <span class="type">WebSite</span> <span class="variable">fz</span> <span class="operator">=</span> factory.getWebSiteCategory(<span class="string">&quot;产品展示&quot;</span>);</span><br><span class="line">        fz.use(<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;娇娇&quot;</span>));</span><br><span class="line">        <span class="type">WebSite</span> <span class="variable">fl</span> <span class="operator">=</span> factory.getWebSiteCategory(<span class="string">&quot;博客&quot;</span>);</span><br><span class="line">        fl.use(<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;老顽童&quot;</span>));</span><br><span class="line">        <span class="type">WebSite</span> <span class="variable">fm</span> <span class="operator">=</span> factory.getWebSiteCategory(<span class="string">&quot;博客&quot;</span>);</span><br><span class="line">        fm.use(<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;桃谷六仙&quot;</span>));</span><br><span class="line">        <span class="type">WebSite</span> <span class="variable">fn</span> <span class="operator">=</span> factory.getWebSiteCategory(<span class="string">&quot;博客&quot;</span>);</span><br><span class="line">        fn.use(<span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;南海鳄神&quot;</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;网站分类总数为：&quot;</span> + factory.getWebSiteCount());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h6><blockquote>
+<p>多个网站共享了网站分类，但是产品和用户是不共享的。</p>
+</blockquote>
+<p><img src="https://cdn.staticaly.com/gh/Zwanan-github/BlogImage/main/img/20221203160522.png" alt="image-20221203160522779"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/29/%E5%88%9B%E9%80%A0%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="prev" title="创造型模式">
+                  <i class="fa fa-chevron-left"></i> 创造型模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/06/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="行为型模式">
+                  行为型模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">作者：Zwanan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
